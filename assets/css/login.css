@@ -1,0 +1,264 @@
+
+:root {
+  /* palette (colorpalette.org) */
+  --grey: #b4b5c2;
+  --black: #131b11;
+  --clay: #ae7b6a;
+  --slate: #4b6861;
+  --leaf: #447111;
+  --lime: #84af57;
+  --deep: #203015;
+  --deep-green: #2d5007;
+
+  --mist: #ecedf1;
+  --text: #131b11;
+  --muted: #53604f;
+  --border: #c9cad4;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Nunito Sans", "Poppins", system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 6%;
+  color: var(--deep-green);
+  line-height: 1.6;
+  background: #fff;
+}
+
+img { max-width: 100%; display: block; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 2px;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  width: 100%;
+  max-width: 1150px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* ---------- Left: welcome side ---------- */
+/* Logo - same look as the landing page header */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  margin-bottom: 18px;
+  font-family: "Bricolage Grotesque", "Nunito Sans", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--deep-green);
+  text-decoration: none;
+}
+.brand-logo .logo-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.back-link {
+  display: table;
+  margin-bottom: 56px;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--leaf);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.back-link:hover { color: var(--deep-green); border-color: var(--lime); }
+
+.brand h1 {
+  font-family: "Bricolage Grotesque", "Nunito Sans", sans-serif;
+  font-size: clamp(2.3rem, 4.6vw, 3.6rem);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  margin-bottom: 24px;
+  color: var(--deep-green);
+}
+.brand p {
+  max-width: 44ch;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+/* little check list under the welcome text */
+.perks {
+  list-style: none;
+  margin-top: 28px;
+  display: grid;
+  gap: .7rem;
+  font-weight: 700;
+  color: var(--deep-green);
+}
+.perks li { position: relative; padding-left: 2.1rem; }
+.perks li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: .05em;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--black);
+  font-size: .85rem;
+  font-weight: 800;
+}
+
+/* ---------- Right: form card ---------- */
+.card {
+  background: #fff;
+  color: var(--text);
+  border-radius: 18px;
+  padding: 36px 40px 40px;
+  border: 1px solid var(--border);
+  border-top: 6px solid var(--lime);
+  box-shadow: 0 12px 40px rgba(19, 27, 17, .12);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  background: var(--mist);
+  padding: 5px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  font: 700 .95rem "Bricolage Grotesque", "Nunito Sans", sans-serif;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .2s, color .2s, box-shadow .2s;
+}
+.tab-btn:hover { color: var(--black); }
+.tab-btn.active {
+  background: #fff;
+  color: var(--leaf);
+  box-shadow: 0 2px 8px rgba(19, 27, 17, .15);
+}
+
+/* Form boxes */
+.form-box { display: none; }
+.form-box.active { display: block; }
+
+.form-box h2 {
+  font-family: "Bricolage Grotesque", "Nunito Sans", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--deep-green);
+}
+.form-sub { color: var(--muted); margin-bottom: 24px; }
+
+.field { margin-bottom: 18px; }
+.field label {
+  display: block;
+  font-size: .9rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--deep-green);
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: 400 1rem "Nunito Sans", "Poppins", sans-serif;
+  color: var(--deep-green);
+  background: #fff;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field input::placeholder { color: #8b9488; }
+.field input:focus,
+.field select:focus {
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(132, 175, 87, .35);
+}
+
+/* Button - same as the landing page buttons */
+.btn-primary {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--black);
+  font: 800 1.05rem "Bricolage Grotesque", "Nunito Sans", sans-serif;
+  cursor: pointer;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.btn-primary:hover {
+  background: #97c06a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(19, 27, 17, .22);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.switch-line {
+  text-align: center;
+  margin-top: 18px;
+  font-size: .92rem;
+  color: var(--muted);
+}
+.switch-link {
+  color: var(--leaf);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--lime);
+}
+.switch-link:hover { color: var(--black); }
+
+/* Alerts */
+.alert {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: .92rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.alert-error   { background: #f8e3dd; color: #8a3a28; border-left: 4px solid var(--clay); }
+.alert-success { background: #eef5e4; color: var(--leaf); border-left: 4px solid var(--lime); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .container { grid-template-columns: 1fr; gap: 36px; }
+  .back-link { margin-bottom: 28px; }
+  .brand h1 { font-size: 2.2rem; }
+  .perks { display: none; }
+  .card { padding: 28px 24px 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

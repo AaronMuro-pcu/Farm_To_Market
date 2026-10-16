@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FarmLinked Farmer | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="farmer.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <!-- Replace with: <img src="../assets/logo.png" alt="FarmLinked"> -->
+        <span aria-hidden="true">🌱</span>
+      </div>
+      <div>
+        <div class="brand-name">FarmLinked</div>
+        <div class="brand-role">Farmer</div>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Farmer menu">
+      <a href="#home" class="nav-link active" data-view="home">
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
+        Home
+      </a>
+      <a href="#listings" class="nav-link" data-view="listings">
+        <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9 0 12-4 16-9 16z"/><path d="M4 21c2-5 5-8 10-10"/></svg>
+        Produce Listings
+      </a>
+      <a href="#requests" class="nav-link" data-view="requests">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Buyer Requests
+        <span class="badge" id="requestsBadge" hidden>0</span>
+      </a>
+      <a href="#orders" class="nav-link" data-view="orders">
+        <svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/></svg>
+        Orders &amp; Contracts
+      </a>
+      <a href="#messages" class="nav-link" data-view="messages">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Messages
+        <span class="badge" id="messagesBadge" hidden>0</span>
+      </a>
+      <a href="#reports" class="nav-link" data-view="reports">
+        <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-9"/></svg>
+        Reports
+      </a>
+    </nav>
+
+    <!-- Profile menu (bottom of sidebar) -->
+    <div class="sidebar-foot">
+      <div class="profile-menu" id="profileMenu" role="menu" aria-label="Profile menu" hidden>
+        <div class="profile-menu-head">Profile</div>
+        <a href="#profile" role="menuitem" data-view="profile">My Profile</a>
+        <a href="#settings" role="menuitem" data-view="settings">Settings</a>
+        <!-- Point this to your PHP logout script -->
+        <a href="../logout.php" role="menuitem" id="logoutLink" class="danger">Log Out</a>
+      </div>
+      <button class="profile-btn" id="profileBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="profileMenu">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+        <span>Profile</span>
+        <svg class="chev" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>
+      </button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="titles">
+        <h1 id="pageTitle">Home</h1>
+        <p id="pageSubtitle">See what other farmers are harvesting and selling</p>
+      </div>
+      <div class="search" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input type="search" id="feedSearch" placeholder="Search posts, crops or farmers" aria-label="Search posts, crops or farmers" autocomplete="off">
+      </div>
+      <a href="#profile" class="user-chip" data-view="profile">
+        <span class="avatar" id="userInitial">F</span>
+        <span id="userName">Farmer</span>
+      </a>
+    </header>
+
+    <!-- ---------- Home (feed) ---------- -->
+    <section class="view active" id="view-home">
+      <div class="home">
+        <div class="feed-col">
+
+          <!-- Create a post -->
+          <section class="fb-card composer" aria-label="Create a post">
+            <div class="composer-top">
+              <span class="avatar md" id="composerAvatar">F</span>
+              <textarea id="postText" rows="2" maxlength="500" placeholder="What's happening on your farm?" aria-label="Write a post"></textarea>
+            </div>
+
+            <div class="composer-type" role="group" aria-label="Post type">
+              <button type="button" class="chip active" data-post-type="harvest" aria-pressed="true">Harvest update</button>
+              <button type="button" class="chip" data-post-type="sale" aria-pressed="false">Selling produce</button>
+            </div>
+
+            <div class="composer-listing" id="composerListing" hidden>
+              <label>Which listing are you selling?
+                <select id="postListing"></select>
+              </label>
+              <p class="hint" id="postListingHint"></p>
+            </div>
+
+            <div class="composer-photo" id="postPhotoWrap" hidden>
+              <img id="postPhotoImg" alt="Photo attached to your post">
+              <button type="button" class="photo-x" id="postPhotoRemove" aria-label="Remove photo">&times;</button>
+            </div>
+            <p class="hint error" id="postError" role="alert" hidden></p>
+
+            <div class="composer-bar">
+              <label class="tool file-btn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8a2 2 0 0 1 2-2h2l1.5-2h5L16 6h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><circle cx="12" cy="12.5" r="3.5"/></svg>
+                Photo
+                <input type="file" id="postPhotoInput" accept="image/png,image/jpeg,image/webp" class="sr-input">
+              </label>
+              <span class="count" id="postCount">0 / 500</span>
+              <button class="btn" type="button" id="postBtn" disabled>Post</button>
+            </div>
+          </section>
+
+          <!-- Filter -->
+          <div class="feed-filter">
+            <div class="tabs" role="tablist" id="feedTabs" aria-label="Filter posts">
+              <button class="tab active" data-feed="all" role="tab">All posts</button>
+              <button class="tab" data-feed="harvest" role="tab">Harvest updates</button>
+              <button class="tab" data-feed="sale" role="tab">For sale</button>
+            </div>
+            <span class="feed-note" id="feedNote"></span>
+          </div>
+
+          <!-- Posts -->
+          <div class="feed" id="feed"></div>
+        </div>
+
+        <!-- Right column: Sell -->
+        <aside class="rail" aria-label="Sell your produce">
+          <section class="fb-card rail-card sell-card">
+            <h2>Sell your produce</h2>
+            <p class="sell-note">Fill in a short form. Our team reviews every product before it goes on sale.</p>
+            <button class="btn sell-btn" type="button" id="sellBtn">Sell</button>
+
+            <div class="submissions">
+              <h3>Your sale requests</h3>
+              <ul class="plain-list" id="submissionList"></ul>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ---------- Produce Listings ---------- -->
+    <section class="view" id="view-listings">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Your produce</h2>
+          <div class="head-actions">
+            <div class="tabs" role="tablist" id="layoutTabs" aria-label="Listing layout">
+              <button class="tab active" data-layout="cards" role="tab">Cards</button>
+              <button class="tab" data-layout="table" role="tab">Table</button>
+            </div>
+            <button class="btn" id="toggleListingForm">Sell a product</button>
+          </div>
+        </div>
+
+
+        <!-- Card layout (default) -->
+        <div class="listing-grid" id="listingCards"></div>
+
+        <!-- Table layout -->
+        <div class="table-wrap" id="listingTable" hidden>
+          <table>
+            <thead><tr><th>Crop</th><th>Total</th><th>Available</th><th>Reserved</th><th>Price / kg</th><th>Harvest</th><th>Location</th><th>Status</th><th></th></tr></thead>
+            <tbody id="listingsBody"></tbody>
+          </table>
+        </div>
+
+        <input type="file" id="photoReplace" accept="image/png,image/jpeg,image/webp" class="sr-input" tabindex="-1" aria-hidden="true">
+      </section>
+    </section>
+
+    <!-- ---------- Buyer Requests ---------- -->
+    <section class="view" id="view-requests">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Buyer requests</h2>
+          <div class="tabs" role="tablist" id="requestTabs">
+            <button class="tab active" data-filter="Pending" role="tab">Pending</button>
+            <button class="tab" data-filter="Accepted" role="tab">Accepted</button>
+            <button class="tab" data-filter="Declined" role="tab">Declined</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Buyer</th><th>Crop</th><th>Quantity</th><th>Offer / kg</th><th>Needed by</th><th></th></tr></thead>
+            <tbody id="requestsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <!-- ---------- Orders & Contracts ---------- -->
+    <section class="view" id="view-orders">
+      <div class="stats three">
+        <article class="stat"><h3>Total ordered</h3><div class="stat-num" id="ordTotal">₱0</div><p id="ordTotalNote">0 orders</p></article>
+        <article class="stat"><h3>Payments received</h3><div class="stat-num" id="ordReceived">₱0</div><p id="ordReceivedNote">0 paid orders</p></article>
+        <article class="stat"><h3>Waiting for payment</h3><div class="stat-num" id="ordDue">₱0</div><p id="ordDueNote">0 unpaid orders</p></article>
+      </div>
+      <section class="panel">
+        <div class="panel-head"><h2>Orders &amp; contracts</h2></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order</th><th>Buyer</th><th>Item</th><th>Total</th><th>Delivery</th><th>Payment</th><th>Status</th><th></th></tr></thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <!-- ---------- Messages ---------- -->
+    <section class="view" id="view-messages">
+      <section class="panel chat">
+        <aside class="chat-list" id="chatList" aria-label="Conversations"></aside>
+        <div class="chat-thread">
+          <div class="chat-head" id="chatHead">Select a conversation</div>
+          <div class="chat-body" id="chatBody"></div>
+          <form class="chat-form" id="chatForm">
+            <input type="text" id="chatInput" placeholder="Write a message" autocomplete="off" disabled>
+            <button class="btn" type="submit" disabled>Send</button>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <!-- ---------- Reports ---------- -->
+    <section class="view" id="view-reports">
+      <div class="stats three">
+        <article class="stat"><h3>Total volume listed</h3><div class="stat-num" id="repVolume">0</div><p>kg across all listings</p></article>
+        <article class="stat"><h3>Available stock</h3><div class="stat-num" id="repAvailable">0</div><p>kg still unsold and unreserved</p></article>
+        <article class="stat"><h3>Pre-sold</h3><div class="stat-num" id="repPresold">0</div><p>kg under contract</p></article>
+        <article class="stat"><h3>Sales this month</h3><div class="stat-num" id="repMonth">₱0</div><p>from orders this month</p></article>
+        <article class="stat"><h3>Expected sales</h3><div class="stat-num" id="repRevenue">₱0</div><p>from all orders</p></article>
+        <article class="stat"><h3>Completed orders</h3><div class="stat-num" id="repCompleted">0</div><p>delivered and paid</p></article>
+      </div>
+      <div class="grid-2 equal">
+        <section class="panel">
+          <div class="panel-head"><h2>Volume by crop</h2></div>
+          <div class="bars" id="repBars"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2>Sales by crop</h2></div>
+          <div class="bars" id="repSalesBars"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ---------- Profile ---------- -->
+    <section class="view" id="view-profile">
+      <!-- Profile card (what buyers see) -->
+      <section class="panel profile-card" id="profileCard">
+        <div class="profile-cover" aria-hidden="true"></div>
+        <div class="profile-head">
+          <div class="profile-photo" id="pfPhoto" aria-label="Profile photo">F</div>
+          <div class="profile-id">
+            <h2 id="pfName">Farmer</h2>
+            <p id="pfAddressLine">Address not set</p>
+          </div>
+        </div>
+
+        <div class="profile-body">
+          <div class="profile-summary">
+            <div class="mini"><b id="pfListings">0</b><span>Listings</span></div>
+            <div class="mini"><b id="pfCompleted">0</b><span>Completed orders</span></div>
+            <div class="mini"><b id="pfSold">0</b><span>kg sold</span></div>
+          </div>
+
+          <div class="profile-section">
+            <h3>About the farmer</h3>
+            <p class="profile-about" id="pfAbout"></p>
+          </div>
+
+          <div class="profile-section">
+            <h3>Main crops</h3>
+            <div class="crop-tags" id="pfCrops"></div>
+          </div>
+
+          <dl class="detail-grid">
+            <div class="detail"><dt>Farm address</dt><dd id="pfAddress"></dd></div>
+            <div class="detail"><dt>Contact number</dt><dd id="pfPhone"></dd></div>
+            <div class="detail"><dt>Farm size</dt><dd id="pfFarmSize"></dd></div>
+            <div class="detail"><dt>Years farming</dt><dd id="pfYears"></dd></div>
+          </dl>
+
+          <div class="profile-edit-bar">
+            <button class="btn" type="button" id="editProfileBtn" aria-expanded="false" aria-controls="profileEditPanel">Edit profile</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Edit form (opens below the card) -->
+      <section class="panel" id="profileEditPanel" hidden>
+        <div class="panel-head"><h2>Edit profile</h2></div>
+        <form class="form-grid" id="profileForm">
+          <div class="photo-field">
+            <span class="field-label">Profile photo <small>(optional)</small></span>
+            <div class="photo-row">
+              <div class="photo-preview round" id="pfPhotoPreview" aria-live="polite"></div>
+              <div class="photo-controls">
+                <div class="photo-buttons">
+                  <label class="btn ghost small file-btn">Choose photo
+                    <input type="file" id="pfPhotoInput" accept="image/png,image/jpeg,image/webp" class="sr-input">
+                  </label>
+                  <button type="button" class="btn ghost small" id="pfRemovePhoto" hidden>Remove photo</button>
+                </div>
+                <p class="hint" id="pfPhotoNote">A clear photo helps buyers trust you. JPG, PNG or WebP.</p>
+              </div>
+            </div>
+          </div>
+
+          <label>Full name
+            <input type="text" name="name" required maxlength="80" placeholder="e.g. Juan Dela Cruz">
+          </label>
+          <label>Contact number
+            <input type="tel" name="phone" maxlength="20" placeholder="09XX XXX XXXX">
+          </label>
+          <label class="wide">Farm address
+            <input type="text" name="address" maxlength="160" placeholder="Barangay, town, province">
+          </label>
+          <label>Farm size (hectares)
+            <input type="number" name="farmSize" min="0" max="10000" step="0.1" placeholder="e.g. 2.5">
+          </label>
+          <label>Years farming
+            <input type="number" name="years" min="0" max="80" step="1" placeholder="e.g. 12">
+          </label>
+          <label class="wide">Main crops <small class="label-hint">Separate with commas</small>
+            <input type="text" name="crops" maxlength="160" placeholder="e.g. Tomato, eggplant, okra">
+          </label>
+          <label class="wide">About the farmer
+            <textarea name="about" rows="5" maxlength="600" placeholder="Tell buyers about you and your farm: how you grow your crops, what you are known for, delivery areas."></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="btn" type="submit">Save profile</button>
+            <button class="btn ghost" type="button" id="cancelProfile">Cancel</button>
+          </div>
+        </form>
+      </section>
+    </section>
+
+    <!-- ---------- Settings ---------- -->
+    <section class="view" id="view-settings">
+      <section class="panel">
+        <div class="panel-head"><h2>Settings</h2></div>
+        <div class="settings">
+          <label class="switch-row">
+            <span><strong>New buyer request alerts</strong><small>Show a badge when a buyer sends a request.</small></span>
+            <input type="checkbox" id="setAlerts" checked>
+          </label>
+          <label class="switch-row">
+            <span><strong>Message alerts</strong><small>Show unread message counts in the menu.</small></span>
+            <input type="checkbox" id="setMessages" checked>
+          </label>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<!-- Pop-up used for accepting a request, recording a payment and viewing a receipt -->
+<div class="modal-backdrop" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-x" type="button" data-close aria-label="Close">&times;</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="farmer.js"></script>
+</body>
+</html>

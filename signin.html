@@ -1,65 +1,46 @@
-<?php
-session_start();
-
-// If already logged in, skip straight to the right dashboard
-if (isset($_SESSION['user_id'])) {
-    header("Location: " . ($_SESSION['user_role'] === 'admin' ? 'admin_page.php' : 'user_page.php'));
-    exit();
-}
-
-$activeForm      = $_SESSION['active_form']      ?? 'login-form';
-$loginError      = $_SESSION['login_error']      ?? null;
-$registerError   = $_SESSION['register_error']   ?? null;
-$registerSuccess = $_SESSION['register_success'] ?? null;
-
-// Clear one-time messages
-unset($_SESSION['active_form'], $_SESSION['login_error'], $_SESSION['register_error'], $_SESSION['register_success']);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login and Register</title>
-    <link rel="stylesheet" href="designs/signin.css">
+    <title>FarmLinked | Login and Register</title>
+    <link rel="icon" href="../assets/images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/signin.css?v=2">
 </head>
 <body>
 
     <div class="container">
-    
+
         <!-- LEFT: welcome side -->
         <div class="brand">
-            <div class="brand-logo">LOGO</div>
-            <a href="landing.php" class="back-link">&larr; Back to homepage</a>
+            <a href="../Landing/landing.html" class="brand-logo" aria-label="FarmLinked home">
+                <img src="../assets/images/logo.png" alt="" class="logo-img">
+                <span>FarmLinked</span>
+            </a>
+            <a href="../Landing/landing.html" class="back-link">&larr; Back to homepage</a>
 
             <h1>Welcome to the Farm-to-Market Linkage</h1>
-            <p>Sign in to continue, or create a new account</p>
+            <p>Login to continue, or create a new account</p>
         </div>
 
         <!-- RIGHT: form card -->
         <div class="card">
             <div class="tabs">
-                <button type="button" class="tab-btn <?php echo $activeForm === 'login-form' ? 'active' : ''; ?>" data-target="login-form">Login</button>
-                <button type="button" class="tab-btn <?php echo $activeForm === 'register-form' ? 'active' : ''; ?>" data-target="register-form">Register</button>
+                <button type="button" class="tab-btn active" data-target="login-form">Login</button>
+                <button type="button" class="tab-btn " data-target="register-form">Register</button>
             </div>
 
             <div class="form-panel">
 
                 <!-- Login Form -->
-                <div class="form-box <?php echo $activeForm === 'login-form' ? 'active' : ''; ?>" id="login-form">
+                <div class="form-box active" id="login-form">
                     <h2>Sign In</h2>
                     <p class="form-sub">Enter your credentials to continue</p>
 
-                    <?php if ($loginError): ?>
-                        <div class="alert alert-error"><?php echo htmlspecialchars($loginError); ?></div>
-                    <?php endif; ?>
-                    <?php if ($registerSuccess): ?>
-                        <div class="alert alert-success"><?php echo htmlspecialchars($registerSuccess); ?></div>
-                    <?php endif; ?>
-
-                    <form action="login.php" method="post">
+                    <form id="loginForm" action="#">
                         <div class="field">
                             <label for="login-email">Email</label>
                             <input type="email" id="login-email" name="email" placeholder="you@example.com" required>
@@ -80,15 +61,11 @@ unset($_SESSION['active_form'], $_SESSION['login_error'], $_SESSION['register_er
                 </div>
 
                 <!-- Register Form -->
-                <div class="form-box <?php echo $activeForm === 'register-form' ? 'active' : ''; ?>" id="register-form">
+                <div class="form-box " id="register-form">
                     <h2>Create Account</h2>
                     <p class="form-sub">Fill in your details to get started</p>
 
-                    <?php if ($registerError): ?>
-                        <div class="alert alert-error"><?php echo htmlspecialchars($registerError); ?></div>
-                    <?php endif; ?>
-
-                    <form action="register.php" method="post">
+                    <form id="registerForm" action="#">
                         <div class="field">
                             <label for="reg-name">Name</label>
                             <input type="text" id="reg-name" name="name" placeholder="Jane Doe" required>
@@ -126,6 +103,18 @@ unset($_SESSION['active_form'], $_SESSION['login_error'], $_SESSION['register_er
         </div>
     </div>
 
-    <script src="/scripts/signin.js"></script>
+    <script src="../assets/js/signin.js"></script>
+    <script>
+    // Preview-only: login goes to the admin dashboard, register goes back to login
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        window.location.href = 'dashboard.html';
+    });
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var tab = document.querySelector('.tab-btn[data-target="login-form"]');
+        if (tab) tab.click();
+    });
+    </script>
 </body>
 </html>

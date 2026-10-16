@@ -1,0 +1,1 @@
+Copy your logo.png into this folder so it shows in the sidebar. A green leaf icon is shown until then.

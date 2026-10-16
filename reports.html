@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmLinked Admin | Reports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <a href="dashboard.html" class="side-brand" aria-label="FarmLinked admin home">
+            <img src="../assets/images/logo.png" alt="" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%232d5007%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M5 19C5 9 11 4 20 4c0 9-5 15-15 15z%22/%3E%3Cpath d=%22M5 19c3-5 6-8 10-10%22/%3E%3C/svg%3E'">
+            <span>FarmLinked<small>Admin</small></span>
+        </a>
+
+        <nav class="nav" aria-label="Admin">
+            <a href="dashboard.html" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a><a href="users.html" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7"/><path d="M17 4.5a3.5 3.5 0 010 7M22 21c0-3-2-5.5-5-6.3"/></svg>Users</a><a href="approvals.html" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Approvals<span class="count js-pending">4</span></a><a href="activity.html" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Login Activity</a><a href="reports.html" class="active" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Reports</a>
+        </nav>
+
+        <div class="side-foot">
+            <a href="../auth/signin.html" class="logout">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/></svg>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+                <div>
+                    <h1>Reports</h1>
+                    <p>Members and sign-ups at a glance</p>
+                </div>
+            </div>
+            <div class="user-chip">
+                <div class="avatar">A</div>
+                <span class="name">Admin</span>
+            </div>
+        </header>
+
+        <section class="stats">
+            <div class="stat"><div class="label">Total members</div><div class="value">12</div><div class="hint">6 farmers · 6 buyers</div></div>
+            <div class="stat"><div class="label">Active accounts</div><div class="value">83%</div><div class="hint">2 suspended</div></div>
+            <div class="stat"><div class="label">New this month</div><div class="value">1</div><div class="hint">4 waiting for approval</div></div>
+        </section>
+
+        <section class="panel">
+            <h2>Sign-ups, last 6 months</h2>
+            <div class="bars"><div class="bar-row"><span class="name">May 2026</span><div class="bar-track"><div class="bar-fill" style="width: 67%"></div></div><span class="amount">2 <span class="muted" style="font-weight:400">(1F · 1B)</span></span></div><div class="bar-row"><span class="name">Jun 2026</span><div class="bar-track"><div class="bar-fill" style="width: 67%"></div></div><span class="amount">2 <span class="muted" style="font-weight:400">(1F · 1B)</span></span></div><div class="bar-row"><span class="name">Jul 2026</span><div class="bar-track"><div class="bar-fill" style="width: 67%"></div></div><span class="amount">2 <span class="muted" style="font-weight:400">(1F · 1B)</span></span></div><div class="bar-row"><span class="name">Aug 2026</span><div class="bar-track"><div class="bar-fill" style="width: 67%"></div></div><span class="amount">2 <span class="muted" style="font-weight:400">(2F · 0B)</span></span></div><div class="bar-row"><span class="name">Sep 2026</span><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="amount">3 <span class="muted" style="font-weight:400">(1F · 2B)</span></span></div><div class="bar-row"><span class="name">Oct 2026</span><div class="bar-track"><div class="bar-fill" style="width: 33%"></div></div><span class="amount">1 <span class="muted" style="font-weight:400">(0F · 1B)</span></span></div></div>
+        </section>
+
+        <div class="grid-2" style="grid-template-columns: 1fr 1fr;">
+            <section class="panel">
+                <h2>Accounts by status</h2>
+                <div class="bars"><div class="bar-row"><span class="name">Active</span><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="amount">10</span></div><div class="bar-row"><span class="name">Suspended</span><div class="bar-track"><div class="bar-fill alt" style="width: 20%"></div></div><span class="amount">2</span></div><div class="bar-row"><span class="name">Pending</span><div class="bar-track"><div class="bar-fill alt" style="width: 40%"></div></div><span class="amount">4</span></div></div>
+            </section>
+            <section class="panel">
+                <h2>Members by location</h2>
+                <div class="bars"><div class="bar-row"><span class="name" style="font-size:.85rem">Dasmariñas</span><div class="bar-track"><div class="bar-fill alt" style="width: 100%"></div></div><span class="amount">3</span></div><div class="bar-row"><span class="name" style="font-size:.85rem">Imus</span><div class="bar-track"><div class="bar-fill alt" style="width: 67%"></div></div><span class="amount">2</span></div><div class="bar-row"><span class="name" style="font-size:.85rem">Silang</span><div class="bar-track"><div class="bar-fill alt" style="width: 67%"></div></div><span class="amount">2</span></div><div class="bar-row"><span class="name" style="font-size:.85rem">Bacoor</span><div class="bar-track"><div class="bar-fill alt" style="width: 33%"></div></div><span class="amount">1</span></div><div class="bar-row"><span class="name" style="font-size:.85rem">General Trias</span><div class="bar-track"><div class="bar-fill alt" style="width: 33%"></div></div><span class="amount">1</span></div><div class="bar-row"><span class="name" style="font-size:.85rem">Indang</span><div class="bar-track"><div class="bar-fill alt" style="width: 33%"></div></div><span class="amount">1</span></div><div class="bar-row"><span class="name" style="font-size:.85rem">Tagaytay</span><div class="bar-track"><div class="bar-fill alt" style="width: 33%"></div></div><span class="amount">1</span></div><div class="bar-row"><span class="name" style="font-size:.85rem">Trece Martires</span><div class="bar-track"><div class="bar-fill alt" style="width: 33%"></div></div><span class="amount">1</span></div></div>
+            </section>
+        </div>
+
+    </main>
+</div>
+
+<script>
+(function () {
+    var sidebar = document.getElementById('sidebar');
+    var btn = document.getElementById('menuBtn');
+    if (sidebar && btn) {
+        btn.addEventListener('click', function () { sidebar.classList.toggle('open'); });
+        document.querySelector('.main').addEventListener('click', function () { sidebar.classList.remove('open'); });
+    }
+
+    /* ---- search + select filters + tabs ---- */
+    var form = document.querySelector('.filters');
+    var seg = document.querySelector('.seg');
+    var segVal = '';
+    var q = form ? form.querySelector('input[type=search]') : null;
+    var selects = form ? [].slice.call(form.querySelectorAll('select[data-attr]')) : [];
+    var clear = form ? form.querySelector('.btn-ghost') : null;
+    var empty = document.getElementById('emptyRow');
+
+    function rows() { return [].slice.call(document.querySelectorAll('tbody tr[data-search]')); }
+
+    function run() {
+        if (!form && !seg) return;
+        var t = q ? q.value.trim().toLowerCase() : '';
+        var shown = 0;
+        rows().forEach(function (r) {
+            var ok = !t || r.dataset.search.indexOf(t) > -1;
+            if (ok && seg && segVal) ok = r.dataset[seg.dataset.attr] === segVal;
+            selects.forEach(function (s) { if (ok && s.value) ok = r.dataset[s.dataset.attr] === s.value; });
+            r.style.display = ok ? '' : 'none';
+            if (ok) shown++;
+        });
+        if (empty) empty.style.display = shown ? 'none' : '';
+        if (clear) {
+            var active = t || selects.some(function (s) { return s.value; });
+            clear.style.display = active ? '' : 'none';
+        }
+    }
+    if (q) q.addEventListener('input', run);
+    selects.forEach(function (s) { s.addEventListener('change', run); });
+    if (form) form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
+    if (clear) clear.addEventListener('click', function () {
+        q.value = ''; selects.forEach(function (s) { s.value = ''; }); run();
+    });
+    if (seg) seg.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        [].forEach.call(seg.querySelectorAll('button'), function (x) { x.classList.remove('active'); });
+        b.classList.add('active'); segVal = b.dataset.val; run();
+    });
+
+    /* ---- suspend / activate (Users page) ---- */
+    function recount() {
+        if (!document.getElementById('tot-farmer')) return;
+        var all = rows();
+        ['farmer', 'buyer'].forEach(function (role) {
+            var mine = all.filter(function (r) { return r.dataset.role === role; });
+            function set(id, text) { var el = document.getElementById(id + '-' + role); if (el) el.textContent = text; }
+            set('tot', mine.length);
+            set('sus', mine.filter(function (r) { return r.dataset.status === 'suspended'; }).length + ' suspended');
+            set('today', mine.filter(function (r) { return r.dataset.today === '1'; }).length);
+            set('on', mine.filter(function (r) { return r.dataset.online === '1'; }).length + ' online now');
+        });
+        var p = document.querySelector('.topbar p');
+        if (p) p.textContent = all.length + ' farmers and buyers';
+    }
+
+    /* ---- approve / reject (Approvals page) ---- */
+    function setPending(n) {
+        [].forEach.call(document.querySelectorAll('.js-pending'), function (el) {
+            el.textContent = n;
+            if (el.classList.contains('count')) el.style.display = n ? '' : 'none';
+        });
+    }
+
+    document.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-act]'); if (!b) return;
+        var row = b.closest('tr'); if (!row) return;
+        var act = b.dataset.act;
+
+        if (act === 'toggle') {
+            var suspend = row.dataset.status === 'active';
+            row.dataset.status = suspend ? 'suspended' : 'active';
+            row.querySelector('.st').innerHTML = '<span class="badge badge-' + (suspend ? 'bad' : 'ok') + '">' + (suspend ? 'Suspended' : 'Active') + '</span>';
+            b.textContent = suspend ? 'Activate' : 'Suspend';
+            b.className = 'btn btn-sm' + (suspend ? '' : ' btn-warn');
+            recount(); run();
+        }
+
+        if (act === 'delete') {
+            if (!window.confirm('Delete ' + row.dataset.name + '\'s account? This cannot be undone.')) return;
+            row.remove();
+            recount(); run();
+        }
+
+        if (act === 'approve' || act === 'reject') {
+            if (act === 'reject' && !window.confirm('Reject this registration?')) return;
+            row.remove();
+            setPending(rows().length);
+            run();
+            if (!rows().length && empty) empty.style.display = '';
+        }
+    });
+
+    run();
+})();
+</script>
+</body>
+</html>
